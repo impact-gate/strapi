@@ -10,12 +10,12 @@ paths:
       tags:
         - Users-Permissions
       responses:
-        '200':
+        "200":
           description: User profile record
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserProfile'
+                $ref: "#/components/schemas/UserProfile"
   /api/auth/local:
     post:
       summary: Local user authentication with identifier and password
@@ -36,7 +36,7 @@ paths:
                 password:
                   type: string
       responses:
-        '200':
+        "200":
           description: Authentication success
           content:
             application/json:
@@ -46,7 +46,7 @@ paths:
                   jwt:
                     type: string
                   user:
-                    $ref: '#/components/schemas/UserProfile'
+                    $ref: "#/components/schemas/UserProfile"
   /api/auth/send-email-confirmation:
     post:
       summary: Send account confirmation email
@@ -64,7 +64,7 @@ paths:
                 email:
                   type: string
       responses:
-        '200':
+        "200":
           description: Confirmation dispatched
           content:
             application/json:
@@ -79,21 +79,21 @@ paths:
       tags:
         - Users-Permissions
       responses:
-        '200':
+        "200":
           description: List of user records
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserProfile'
+                  $ref: "#/components/schemas/UserProfile"
   /api/articles:
     get:
       summary: List articles
       tags:
         - Content API
       responses:
-        '200':
+        "200":
           description: List of articles in standard Strapi envelope
           content:
             application/json:
@@ -123,7 +123,6 @@ paths:
                     properties:
                       pagination:
                         type: object
-
 components:
   schemas:
     UserProfile:
@@ -146,3 +145,11 @@ components:
         legacyBadge:
           type: string
           nullable: true
+        bio:
+          type: string
+        location:
+          type: string
+        socialLinks:
+          type: array
+          items:
+            type: string
