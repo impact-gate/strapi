@@ -10,12 +10,12 @@ paths:
       tags:
         - Users-Permissions
       responses:
-        '200':
+        "200":
           description: User profile record
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserProfile'
+                $ref: "#/components/schemas/UserProfile"
   /api/auth/local:
     post:
       summary: Local user authentication with identifier and password
@@ -36,7 +36,7 @@ paths:
                 password:
                   type: string
       responses:
-        '200':
+        "200":
           description: Authentication success
           content:
             application/json:
@@ -46,7 +46,7 @@ paths:
                   jwt:
                     type: string
                   user:
-                    $ref: '#/components/schemas/UserProfile'
+                    $ref: "#/components/schemas/UserProfile"
   /api/auth/send-email-confirmation:
     post:
       summary: Send account confirmation email
@@ -64,7 +64,7 @@ paths:
                 email:
                   type: string
       responses:
-        '200':
+        "200":
           description: Confirmation dispatched
           content:
             application/json:
@@ -79,21 +79,21 @@ paths:
       tags:
         - Users-Permissions
       responses:
-        '200':
+        "200":
           description: List of user records
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserProfile'
+                  $ref: "#/components/schemas/UserProfile"
   /api/articles:
     get:
       summary: List articles
       tags:
         - Content API
       responses:
-        '200':
+        "200":
           description: List of articles in standard Strapi envelope
           content:
             application/json:
@@ -107,23 +107,17 @@ paths:
                       properties:
                         id:
                           type: integer
-                        attributes:
-                          type: object
-                          properties:
-                            title:
-                              type: string
-                            slug:
-                              type: string
-                            content:
-                              type: string
-                            editorialReviewStatus:
-                              type: string
+                        title:
+                          type: string
+                        slug:
+                          type: string
+                        content:
+                          type: string
                   meta:
                     type: object
                     properties:
                       pagination:
                         type: object
-
 components:
   schemas:
     UserProfile:
