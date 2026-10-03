@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: Strapi Enterprise CMS (Core + Plugins)
+  version: 1.0.0
+  description: Public and Authenticated REST Contracts for Strapi headless CMS
+paths:
+  /api/users/me:
+    get:
+      summary: Retrieve current authenticated user profile
+      tags:
+        - Users-Permissions
+      responses:
+        '200':
+          description: User profile record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+  /api/auth/local:
+    post:
+      summary: Local user authentication with identifier and password
+      tags:
+        - Users-Permissions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - identifier
+                - password
+              properties:
+                identifier:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Authentication success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jwt:
+                    type: string
+                  user:
+                    $ref: '#/components/schemas/UserProfile'
+  /api/auth/send-email-confirmation:
+    post:
+      summary: Send account confirmation email
+      tags:
+        - Users-Permissions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+      responses:
+        '200':
+          description: Confirmation dispatched
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sent:
+                    type: boolean
+  /api/users:
+    get:
+      summary: List users
+      tags:
+        - Users-Permissions
+      responses:
+        '200':
+          description: List of user records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserProfile'
+  /api/articles:
+    get:
+      summary: List articles
+      tags:
+        - Content API
+      responses:
+        '200':
+          description: List of articles in standard Strapi envelope
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        attributes:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            slug:
+                              type: string
+                            content:
+                              type: string
+                            editorialReviewStatus:
+                              type: string
+                  meta:
+                    type: object
+                    properties:
+                      pagination:
+                        type: object
+
+components:
+  schemas:
+    UserProfile:
+      type: object
+      required:
+        - id
+        - username
+        - email
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        confirmed:
+          type: boolean
+        blocked:
+          type: boolean
+        legacyBadge:
+          type: string
+          nullable: true
